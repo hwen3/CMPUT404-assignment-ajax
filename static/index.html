@@ -58,11 +58,21 @@ function sendJSONXMLHTTPRequest(url, objects, callback) {
 
 world = {};
 
+//returns a random color
+function getRandomColor() {
+    return "#" + (Math.round(Math.random() * 0XFFFFFF)).toString(16);
+}
+
+//returns a number between 1 and upperbound
+function getRandomNumber(upperBound) {
+    return Math.floor(Math.random() * upperBound) + 1;
+}
+
 // draws the circle with different line width
 function drawCircle(context,entity) {
     with(context) {
         beginPath();              
-        lineWidth = Math.floor(Math.random() * 5) + 1;
+        lineWidth = getRandomNumber(5);
         var x = entity["x"];
         var y = entity["y"];
         //moveTo(x,y);
@@ -248,10 +258,6 @@ mouse = (function() {
     return self;
 })();
 
-function getRandomColor() {
-    return "#" + (Math.round(Math.random() * 0XFFFFFF)).toString(16);
-}
-
 // Add the application specific mouse listeners!
 // draws in random color whenever mouse is clicked and whenever mouse is being dragged
 mouse.mousedowners.push(function(x,y,clicked,e) {
@@ -264,7 +270,7 @@ mouse.mouseuppers.push(function(x,y,clicked,e) {
 
 mouse.mousedraggers.push(function(x,y,clicked,e) {
     addEntityWithoutName({'x':x,'y':y,'colour':getRandomColor(),
-                          'radius':10});
+                          'radius':getRandomNumber(25)});
 });
 
 function update() {
